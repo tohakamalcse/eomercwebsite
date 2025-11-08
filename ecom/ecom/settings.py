@@ -9,10 +9,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # -----------------------------
 # SECURITY SETTINGS
 # -----------------------------
-# Keep this secret key safe in production
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-vwo@#@w^7g24vu0v1hrw5d29_7aim3y5dkigx!8kwd)ye(r_iq')
+# Get SECRET_KEY from environment or fallback (for development only)
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
-# Debug mode: True for local dev, False in production
+# Debug mode: True for local dev, False for production
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 # Allowed hosts from environment variable (comma separated)
@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'store',  # your app
+    'store',
 ]
 
 MIDDLEWARE = [
@@ -88,4 +88,32 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # -----------------------------
 # INTERNATIONALIZATION
-# ----------
+# -----------------------------
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+
+# -----------------------------
+# STATIC FILES
+# -----------------------------
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']       # local static folder
+STATIC_ROOT = BASE_DIR / 'staticfiles'        # collectstatic output folder
+
+# -----------------------------
+# MEDIA FILES
+# -----------------------------
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# -----------------------------
+# DEFAULT PRIMARY KEY FIELD TYPE
+# -----------------------------
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# -----------------------------
+# SECURITY HEADERS
+# -----------------------------
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
